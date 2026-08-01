@@ -23,6 +23,7 @@ def upload():
     return upload_document(int(customer_id), file)
 
 
+
 def view_documents():
     return get_documents()
 
