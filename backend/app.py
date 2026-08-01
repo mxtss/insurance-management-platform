@@ -26,8 +26,9 @@ def create_app():
     CORS(
     app,
     origins=[
-        "https://insurance-frontend-qtnn.onrender.com/"
-    ]
+        "https://insurance-frontend-qtnn.onrender.com"
+    ],
+    supports_credentials=True
 )
 
     import models
