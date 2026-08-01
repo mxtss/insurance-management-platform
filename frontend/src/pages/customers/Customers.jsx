@@ -10,6 +10,8 @@ import {
   getCustomers,
   createCustomer,
   searchCustomers,
+  editCustomer,
+  deleteCustomer
 } from "../../services/customerService";
 
 function Customers() {
@@ -19,6 +21,7 @@ function Customers() {
   const [search, setSearch] = useState("");
 
   const [open, setOpen] = useState(false);
+  const [editing, setEditing] = useState(null);
 
   useEffect(() => {
     loadCustomers();
@@ -30,21 +33,36 @@ function Customers() {
   };
 
   const saveCustomer = async (customer) => {
-  try {
-    await createCustomer(customer);
+    try {
+      if (editing) {
+        await updateCustomer(editing.id, customer);   // edit path
+      } else {
+        await createCustomer(customer);
+      }
+      setOpen(false);
+      setEditing(null);
+      await loadCustomers();
+    } catch (error) {
+      console.error(error);
+      alert("Unable to save customer.");
+    }
+  };
 
-    setOpen(false);
+  const handleEdit = (customer) => {
+    setEditing(customer);   // pre-fills the modal
+    setOpen(true);
+  };
 
-    await loadCustomers();
-
-  } catch (error) {
-
-    console.error(error);
-
-    alert("Unable to save customer.");
-
-  }
-};
+  const handleDelete = async (id) => {
+    if (!window.confirm("Delete this customer?")) return;
+    try {
+      await deleteCustomer(id);
+      await loadCustomers();
+    } catch (error) {
+      console.error(error);
+      alert("Unable to delete customer.");
+    }
+  };
 
   const searchCustomer = async (keyword) => {
 
@@ -78,18 +96,22 @@ function Customers() {
     searchCustomer(e.target.value);
 
   }}
-  onAdd={() => setOpen(true)}
+  onAdd={() => {
+          setEditing(null);   // blank form for Add
+          setOpen(true);
+        }}
 />
       <CustomerTable
         customers={customers}
-        onEdit={() => {}}
-        onDelete={() => {}}
+        onEdit={handleEdit}
+        onDelete={handleDelete}
       />
 
       <CustomerModal
         open={open}
         onClose={() => setOpen(false)}
         onSave={saveCustomer}
+        customer={editing}
       />
 
     </MainLayout>
