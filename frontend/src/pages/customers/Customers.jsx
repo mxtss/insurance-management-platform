@@ -10,7 +10,7 @@ import {
   getCustomers,
   createCustomer,
   searchCustomers,
-  editCustomer,
+  updateCustomer,
   deleteCustomer
 } from "../../services/customerService";
 
