@@ -1,4 +1,4 @@
-from flask import Flask, app
+from flask import Flask
 from extensions import db, migrate, jwt, bcrypt
 from flask_cors import CORS
 from routes.auth_routes import auth_bp
@@ -23,7 +23,12 @@ def create_app():
     migrate.init_app(app, db)
     jwt.init_app(app)
     bcrypt.init_app(app)
-    CORS(app)
+    CORS(
+    app,
+    origins=[
+        "https://insurance-frontend-qtnn.onrender.com/"
+    ]
+)
 
     import models
 
