@@ -1,10 +1,11 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://insurance-backend-1-bhfx.onrender.com/api",
+  baseURL: "https://insurance-backend-1-bhfx.onrender.com",
   headers: {
     "Content-Type": "application/json",
   },
+  withCredentials: true,
 });
 
 // Automatically attach JWT token
