@@ -5,7 +5,7 @@ import {
   Routes,
 } from "react-router-dom";
 
-import Login from "./pages/auth/Login";
+import Login from "./pages/api/auth/Login";
 import Dashboard from "./pages/dashboard/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import useAuth from "./hooks/useAuth";
