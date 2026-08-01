@@ -33,20 +33,27 @@ function Customers() {
   };
 
   const saveCustomer = async (customer) => {
-    try {
-      if (editing) {
-        await updateCustomer(editing.id, customer);   // edit path
-      } else {
-        await createCustomer(customer);
-      }
-      setOpen(false);
-      setEditing(null);
-      await loadCustomers();
-    } catch (error) {
-      console.error(error);
-      alert("Unable to save customer.");
+  try {
+    const payload = {
+      name: customer.name,
+      email: customer.email,
+      phone: customer.phone,
+      address: customer.address,
+      dob: customer.dob,
+    };
+    if (editing) {
+      await updateCustomer(editing.id, payload);   // id goes in the URL, not the body
+    } else {
+      await createCustomer(payload);
     }
-  };
+    setOpen(false);
+    setEditing(null);
+    await loadCustomers();
+  } catch (error) {
+    console.error(error);
+    alert("Unable to save customer.");
+  }
+};
 
   const handleEdit = (customer) => {
     setEditing(customer);   // pre-fills the modal
