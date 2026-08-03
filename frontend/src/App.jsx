@@ -5,6 +5,7 @@ import {
   Routes,
 } from "react-router-dom";
 
+import Signup from "./pages/auth/Signup";
 import Login from "./pages/auth/Login";
 import Dashboard from "./pages/dashboard/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -100,6 +101,15 @@ function App() {
   </ProtectedRoute>
  }
 />
+
+        <Route
+          path="/signup"
+          element={
+            user
+              ? <Navigate to="/dashboard" />
+              : <Signup />
+          }
+        />    
 
       </Routes>
 

@@ -7,6 +7,17 @@ export const login = async (email, password) => {
       password,
     });
 
+export const register = async (user) => {
+
+  const response = await api.post(
+    "/auth/register",
+    user
+  );
+
+  return response.data;
+
+};
+
     return response.data;
   } catch (error) {
     throw (
@@ -29,3 +40,4 @@ export const getProfile = async () => {
     );
   }
 };
+
